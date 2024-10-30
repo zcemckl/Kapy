@@ -1,0 +1,6 @@
+@Kapy.Server_HostAddress = http://localhost:5181
+
+GET {{Kapy.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
