@@ -1,65 +1,90 @@
 import { useState } from 'react';
 import HomePage from './pages/HomePage';
-import WorkoutsPage from './pages/WorkoutsPage';
+import WorkoutsPage, { AddWorkout } from './pages/WorkoutsPage';
 import WorkoutPage from './pages/WorkoutPage';
 import ErrorPage from './pages/ErrorPage';
 import Layout from './components/Layout';
-import { Workout } from './classes/Workout.ts';  
+import { DefaultWorkout, Workout } from './classes/Workout.ts';  
 
-//interface Forecast {
-//    date: string;
-//    temperatureC: number;
-//    temperatureF: number;
-//    summary: string;
-//}
+const sampleWorkouts: Workout[] = [
+    {
+        "id": 1,
+        "name": "W",
+        "description": "W",
+        "notes": ["", ""],
+        "hashtags": ["Weight", "Chill"]
+    },
+    {
+        "id": 2,
+        "name": "W",
+        "description": "W",
+        "notes": ["", ""],
+        "hashtags": ["Weight", "Chill"]
+    },
+    {
+        "id": 3,
+        "name": "Inclined Weighted Plank",
+        "description": "Curl a dumbell while in inclined elbow plank position with legs spread",
+        "notes": [
+            "Focus on the core balance",
+            "Don't focus on the curl",
+            "Keep core tight, not slack",
+            "Slightly bend legs"
+        ],
+        "hashtags": ["Core Endurance"]
+    },
+    {
+        "id": 4,
+        "name": "Guided wheel twist",
+        "description": "Using elevated dumbell as a guide, twist body to feel it between the legs",
+        "notes": [
+            "Start with hinge position",
+            "lifting leg should be lifted further",
+            "twist slowly"
+        ],
+        "hashtags": ["Core Endurance"]
+    },
+    {
+        "id": 5,
+        "name": "Weighted Side Kneel",
+        "description": "Kneel on one foot while holding a dumbbell and lean into direction of the foot",
+        "notes": [
+            "leg should starting at 90deg",
+            "dumbbell should be held horizontal",
+            "use cusion on kneeling knee",
+            "hip should be following motion",
+            "upperbody should not 'lead' hip motion",
+            "hip, knee and body motion should be in line with foot"
+        ],
+        "hashtags": ["Core Endurance"]
+    },
+    {
+        "id": 6,
+        "name": "Seated good mornings",
+        "description": "Lean forward with straight back",
+        "notes": [
+            "don't arch back",
+            "don't worry about butt leaving seat",
+            "Hold single weight with clasped hands between thumb and index",
+            "should feel a stretch up the spine"
+        ],
+        "hashtags": ["Core Endurance"]
+    },
+    {
+        "id": 7,
+        "name": "Devil presses",
+        "description": "burpees with weights",
+        "notes": [
+            "Make sure arms align with legs when rising"
+        ],
+        "hashtags": ["Core Endurance"]
+    }
+];
 
 function App() {
-    //const [forecasts, setForecasts] = useState<Forecast[]>();
     const [page, setPage] = useState('home');
-    const [workout, setWorkout] = useState<Workout>({
-        id: 0,
-        name: '',
-        description: '',
-        notes: [],
-        hashtags: []  
-    });
-
-    //setPage('HomePage');
-
-    //useEffect(() => {
-    //    populateWeatherData();
-    //}, []);
-
-    //const contents = forecasts === undefined
-    //    ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-    //    : <table className="table table-striped" aria-labelledby="tableLabel">
-    //        <thead>
-    //            <tr>
-    //                <th>Date</th>
-    //                <th>Temp. (C)</th>
-    //                <th>Temp. (F)</th>
-    //                <th>Summary</th>
-    //            </tr>
-    //        </thead>
-    //        <tbody>
-    //            {forecasts.map(forecast =>
-    //                <tr key={forecast.date}>
-    //                    <td>{forecast.date}</td>
-    //                    <td>{forecast.temperatureC}</td>
-    //                    <td>{forecast.temperatureF}</td>
-    //                    <td>{forecast.summary}</td>
-    //                </tr>
-    //            )}
-    //        </tbody>
-    //    </table>;
-
-    //return (
-    //    <div>
-    //        <h1 id="tableLabel">Weather forecast</h1>
-    //        <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setPage("test1")}>TEST</button>
-    //        <p>This component demonstrates fetching data from the server.</p>
-    //        {page == 'test1' ? (<p>This component demonstrates fetching data from the server.</p>) : (<p>This </p>)}
-    //        {contents}
+    const [workouts, setWorkouts] = useState<Workout[]>(sampleWorkouts);
+    const [workout, setWorkout] = useState<Workout>(DefaultWorkout());
 
     if (page == 'home') {
         return (
@@ -68,20 +93,20 @@ function App() {
     }
          
     var pageComponent = (<ErrorPage></ErrorPage>);
-    var pageButton = (<ErrorPage></ErrorPage>);
+    var pageButtons = (<ErrorPage></ErrorPage>);
 
     switch (page) {
         case 'workouts':
             pageComponent = (
-                <WorkoutsPage setPage={setPage} setWorkout={setWorkout}></WorkoutsPage>
+                <WorkoutsPage workouts={workouts} setPage={setPage} setWorkout={setWorkout} setWorkouts={setWorkouts}></WorkoutsPage>
             );
-            pageButton = (<button type='button'>Add</button>);
+            pageButtons = (<AddWorkout setPage={setPage} setWorkout={setWorkout}></AddWorkout>);
             break;
         case 'workout':
             pageComponent = (
                 <WorkoutPage workout={ workout }></WorkoutPage>
             );
-            pageButton = (<button type='button'>Save/Edit</button>);
+            pageButtons = (<button type='button' className='bg-red-300 h-16 w-30'>Save/Edit</button>);
             break;
         default:
             pageComponent = (
@@ -91,16 +116,10 @@ function App() {
     };
 
     return (
-        <Layout setPage={setPage} currentPage={page} currentPageButton={pageButton}>
+        <Layout setPage={setPage} currentPage={page} currentPageButtons={pageButtons}>
             { pageComponent }
         </Layout>
     )
-
-    //async function populateWeatherData() {
-    //    const response = await fetch('weatherforecast');
-    //    const data = await response.json();
-    //    setForecasts(data);
-    //}
 }
 
 export default App;

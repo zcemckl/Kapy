@@ -1,11 +1,11 @@
 interface LayoutProps {
     setPage: (page: string) => void;
     currentPage: string;
-    currentPageButton: React.ReactNode;
+    currentPageButtons: React.ReactNode;
     children?: React.ReactNode;
 }
 
-function Layout({ setPage, currentPage, currentPageButton, children }: LayoutProps) {
+function Layout({ setPage, currentPage, currentPageButtons, children }: LayoutProps) {
     var parentPage = 'error'
     switch (currentPage) {
         case 'workout':
@@ -34,7 +34,7 @@ function Layout({ setPage, currentPage, currentPageButton, children }: LayoutPro
                     {parentPage.toUpperCase()}
                 </button>
                 <div className='w-full flex flex-row justify-end px-10'>
-                    { currentPageButton }
+                    { currentPageButtons }
                 </div>
             </div>
             {children}
