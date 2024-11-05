@@ -12,7 +12,7 @@ interface WorkoutsPageProps {
     setWorkouts: (workouts: Workout[]) => void;
 }  
 
-interface AddWorkoutProps {
+interface WorkoutsLayoutProps {
     setPage: (page: string) => void;
     setWorkout: (workout: Workout) => void;
 }
@@ -22,6 +22,11 @@ function WorkoutsPage({ workouts, setPage, setWorkout,setWorkouts }: WorkoutsPag
         setPage('workout');
         setWorkout(DefaultWorkout());
         setWorkouts([DefaultWorkout()]);
+    }
+
+    function handleClick(workout:Workout) {
+        setPage('workout');
+        setWorkout(workout);
     }
 
     return (  
@@ -40,7 +45,7 @@ function WorkoutsPage({ workouts, setPage, setWorkout,setWorkouts }: WorkoutsPag
             <div data-simplebar className="w-full p-5" style={{ height: "calc(100svh - 20rem)" }}>  
                 <div className="flex flex-row flex-wrap justify-center">  
                     {workouts.map(
-                        (workout) => (<button key={ workout.id } className="w-32 h-32 bg-red-500 m-5">{workout.name}</button>)
+                        (workout) => (<button key={workout.id} className="w-32 h-32 bg-red-500 m-5" onClick={() => handleClick(workout)}>{workout.name}</button>)
                     )}
                 </div>  
             </div>  
@@ -48,7 +53,7 @@ function WorkoutsPage({ workouts, setPage, setWorkout,setWorkouts }: WorkoutsPag
     );  
 }  
 
-export function AddWorkout({ setPage, setWorkout }: AddWorkoutProps) {
+export function WorkoutsLayout({ setPage, setWorkout }: WorkoutsLayoutProps) {
     function handleClick() {
         setPage('workout');
         setWorkout(DefaultWorkout());
