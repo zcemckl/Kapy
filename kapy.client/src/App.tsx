@@ -192,9 +192,9 @@ function App() {
             break;
         case 'workout':
             pageComponent = (
-                <WorkoutPage workout={workout} mode={ workoutPageMode }></WorkoutPage>
+                <WorkoutPage workout={workout} mode={workoutPageMode} setWorkout={setWorkout}></WorkoutPage>
             );
-            pageButtons = (<WorkoutLayout mode={workoutPageMode} setMode={ setWorkoutPageMode }></WorkoutLayout>
+            pageButtons = (<WorkoutLayout mode={workoutPageMode} setMode={setWorkoutPageMode}></WorkoutLayout>);
             break;
         default:
             pageComponent = (

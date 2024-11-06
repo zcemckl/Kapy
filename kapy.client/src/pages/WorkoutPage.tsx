@@ -1,8 +1,10 @@
 import { Workout } from "../classes/Workout.ts";
+import ErrorPage from "./ErrorPage.tsx";
 
 interface WorkoutPageProps {
     workout: Workout;
     mode: string;
+    setWorkout: (workout: Workout) => void;
 }
 
 interface WorkoutLayoutProps {
@@ -10,7 +12,12 @@ interface WorkoutLayoutProps {
     setMode: (mode: string) => void;
 }
 
-function WorkoutPage({ workout, mode }: WorkoutPageProps) {
+function WorkoutPage({ workout, mode, setWorkout }: WorkoutPageProps) {
+    function handleChange(callback: () => void) {
+        callback();
+        setWorkout(workout);
+    }
+
     switch (mode) {
         case 'read':
             return (
@@ -41,7 +48,7 @@ function WorkoutPage({ workout, mode }: WorkoutPageProps) {
                         </span>
                         <div className='flex flex-row space-x-2 p-3' style={{ color: 'rgb(248, 246, 241)' }} >
                             {workout.notes.map((note, index) => (<span key={index} className='text-lg text-center m-auto' style={{ backgroundColor: 'rgb(255, 146, 86)', height: '', width: '' }} >
-                                {note}
+                                {note.content}
                             </span>))}
                         </div>
                     </div>
@@ -58,16 +65,16 @@ function WorkoutPage({ workout, mode }: WorkoutPageProps) {
             return (
                 <div className='grid w-full h-full font-sans p-3' style={{ color: 'rgb(248, 246, 241)', gridTemplate: '50% 50% / 70% 30%' }}>
                     <div className='m-1 flex flex-col justify-between' style={{ gridArea: '1/1/2/2' }}>
-                        <textarea className='text-3xl py-3 resize-none' >
-                            {workout.name}
+                        <textarea className='text-3xl py-3 resize-none' value={workout.name} onChange={(e) => handleChange(() => {workout.name = e.target.value}) }>
                         </textarea>
-                        <textarea className='text-lg min-h-40 h-full resize-none'>
-                            {workout.description}
+                        <textarea className='text-lg min-h-40 h-full resize-none' value={workout.description} onChange={(e) => handleChange(() => { workout.description = e.target.value })}>
                         </textarea>
                         <div className='flex flex-row space-x-3 py-3'>
-                            {workout.hashtags.map((hashtag, index) => (<input key={index} className='text-lg'>
-                                #{hashtag}
-                            </input>))}
+                            {workout.hashtags.map((hashtag, index) => (
+                                <div>
+                                    <span key={index} className='text-lg'>#</span>
+                                    <input key={index} className='text-lg' value={hashtag} onChange={(e) => handleChange(() => { hashtag = e.target.value })} />
+                                </div>))}
                         </div>
                     </div>
                     <div className='rounded-lg m-1 grid' style={{ gridArea: '1/2/2/3', backgroundColor: 'rgba(247, 226, 198,0.6)', gridTemplateRows: '2rem auto' }}>
@@ -82,8 +89,7 @@ function WorkoutPage({ workout, mode }: WorkoutPageProps) {
                             Notes
                         </span>
                         <div className='flex flex-row space-x-2 p-3 resize' style={{ color: 'rgb(248, 246, 241)' }} >
-                            {workout.notes.map((note, index) => (<textarea key={index} className='text-lg text-center m-auto' style={{ backgroundColor: 'rgb(255, 146, 86)', resize: 'both' }} >
-                                {note}
+                            {workout.notes.map((note, index) => (<textarea key={index} className='text-lg text-center m-auto' style={{ backgroundColor: 'rgb(255, 146, 86)', resize: 'both' }} value={note.content} onChange={(e) => handleChange(() => { note.content = e.target.value })}>
                             </textarea>))}
                         </div>
                     </div>
