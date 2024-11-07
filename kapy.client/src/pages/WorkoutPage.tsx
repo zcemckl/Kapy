@@ -1,18 +1,18 @@
-import { Workout } from "../classes/Workout.ts";
+import { IWorkout } from "../classes/Workout.ts";
 import ErrorPage from "./ErrorPage.tsx";
 
-interface WorkoutPageProps {
-    workout: Workout;
+interface IWorkoutPageProps {
+    workout: IWorkout;
     mode: string;
-    setWorkout: (workout: Workout) => void;
+    setWorkout: (workout: IWorkout) => void;
 }
 
-interface WorkoutLayoutProps {
+interface IWorkoutLayoutProps {
     mode: string;
     setMode: (mode: string) => void;
 }
 
-function WorkoutPage({ workout, mode, setWorkout }: WorkoutPageProps) {
+function WorkoutPage({ workout, mode, setWorkout }: IWorkoutPageProps) {
     function handleChange(callback: () => void) {
         callback();
         setWorkout(workout);
@@ -109,7 +109,7 @@ function WorkoutPage({ workout, mode, setWorkout }: WorkoutPageProps) {
     }
 }
 
-export function WorkoutLayout({ mode, setMode }: WorkoutLayoutProps) {
+export function WorkoutLayout({ mode, setMode }: IWorkoutLayoutProps) {
     function handleClick() {
         setMode(mode == 'read' ? 'write' : 'read');
     }
