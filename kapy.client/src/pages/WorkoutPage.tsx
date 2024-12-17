@@ -1,4 +1,4 @@
-import { Workout } from "../classes/Workout.ts";
+import { Workout, clone } from "../classes/Workout.ts";
 import ErrorPage from "./ErrorPage.tsx";
 
 interface WorkoutPageProps {
@@ -15,7 +15,7 @@ interface WorkoutLayoutProps {
 function WorkoutPage({ workout, mode, setWorkout }: WorkoutPageProps) {
     function handleChange(callback: () => void) {
         callback();
-        setWorkout(workout);
+        setWorkout(clone(workout));
     }
 
     switch (mode) {

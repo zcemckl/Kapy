@@ -12,12 +12,12 @@ const sampleWorkouts: Workout[] = [
         "name": "V",
         "description": "V",
         "notes": [{
-            id: 0,
+            id: 1,
             content: "",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 2,
             content: "",
             width: 100,
             height: 100
@@ -29,12 +29,12 @@ const sampleWorkouts: Workout[] = [
         "name": "W",
         "description": "W",
         "notes": [{
-            id: 0,
+            id: 3,
             content: "",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 4,
             content: "",
             width: 100,
             height: 100
@@ -46,22 +46,22 @@ const sampleWorkouts: Workout[] = [
         "name": "Inclined Weighted Plank",
         "description": "Curl a dumbell while in inclined elbow plank position with legs spread",
         "notes": [{
-            id: 0,
+            id: 5,
             content: "Focus on the core balance",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 6,
             content: "Don't focus on the curl",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 7,
             content: "Keep core tight, not slack",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 8,
             content: "Slightly bend legs",
             width: 100,
             height: 100
@@ -73,17 +73,17 @@ const sampleWorkouts: Workout[] = [
         "name": "Guided wheel twist",
         "description": "Using elevated dumbell as a guide, twist body to feel it between the legs",
         "notes": [{
-            id: 0,
+            id: 9,
             content: "Start with hinge position",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 10,
             content: "lifting leg should be lifted further",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 11,
             content: "twist slowly",
             width: 100,
             height: 100
@@ -95,32 +95,32 @@ const sampleWorkouts: Workout[] = [
         "name": "Weighted Side Kneel",
         "description": "Kneel on one foot while holding a dumbbell and lean into direction of the foot",
         "notes": [{
-            id: 0,
+            id: 12,
             content: "leg should starting at 90deg",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 13,
             content: "dumbbell should be held horizontal",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 14,
             content: "use cusion on kneeling knee",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 15,
             content: "hip should be following motion",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 16,
             content: "upperbody should not 'lead' hip motion",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 17,
             content: "hip, knee and body motion should be in line with foot",
             width: 100,
             height: 100
@@ -132,22 +132,22 @@ const sampleWorkouts: Workout[] = [
         "name": "Seated good mornings",
         "description": "Lean forward with straight back",
         "notes": [{
-            id: 0,
+            id: 18,
             content: "don't arch back",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 19,
             content: "don't worry about butt leaving seat",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 20,
             content: "Hold single weight with clasped hands between thumb and index",
             width: 100,
             height: 100
         }, {
-            id: 0,
+            id: 21,
             content: "should feel a stretch up the spine",
             width: 100,
             height: 100
@@ -159,7 +159,7 @@ const sampleWorkouts: Workout[] = [
         "name": "Devil presses",
         "description": "burpees with weights",
         "notes": [{
-            id: 0,
+            id: 22,
             content: "Make sure arms align with legs when rising",
             width: 100,
             height: 100
