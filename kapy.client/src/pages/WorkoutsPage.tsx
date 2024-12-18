@@ -1,30 +1,30 @@
 import 'simplebar';  
 import 'simplebar/dist/simplebar.css';  
 import ResizeObserver from 'resize-observer-polyfill';  
-import { DefaultWorkout, Workout } from '../classes/Workout.ts';  
+import { DefaultWorkout, IWorkout } from '../classes/Workout.ts';  
 
 window.ResizeObserver = ResizeObserver;  
 
-interface WorkoutsPageProps {
-    workouts: Workout[];  
+interface IWorkoutsPageProps {
+    workouts: IWorkout[];  
     setPage: (page: string) => void;  
-    setWorkout: (workout: Workout) => void;
-    setWorkouts: (workouts: Workout[]) => void;
+    setWorkout: (workout: IWorkout) => void;
+    setWorkouts: (workouts: IWorkout[]) => void;
 }  
 
-interface WorkoutsLayoutProps {
+interface IWorkoutsLayoutProps {
     setPage: (page: string) => void;
-    setWorkout: (workout: Workout) => void;
+    setWorkout: (workout: IWorkout) => void;
 }
 
-function WorkoutsPage({ workouts, setPage, setWorkout,setWorkouts }: WorkoutsPageProps) {  
+function WorkoutsPage({ workouts, setPage, setWorkout,setWorkouts }: IWorkoutsPageProps) {  
     if (false) {
         setPage('workout');
         setWorkout(DefaultWorkout());
         setWorkouts([DefaultWorkout()]);
     }
 
-    function handleClick(workout:Workout) {
+    function handleClick(workout:IWorkout) {
         setPage('workout');
         setWorkout(workout);
     }
@@ -53,7 +53,7 @@ function WorkoutsPage({ workouts, setPage, setWorkout,setWorkouts }: WorkoutsPag
     );  
 }  
 
-export function WorkoutsLayout({ setPage, setWorkout }: WorkoutsLayoutProps) {
+export function WorkoutsLayout({ setPage, setWorkout }: IWorkoutsLayoutProps) {
     function handleClick() {
         setPage('workout');
         setWorkout(DefaultWorkout());

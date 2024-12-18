@@ -1,8 +1,8 @@
-interface HomeProps {
+interface IHomeProps {
     setPage: (page: string) => void;
 }
 
-function HomePage({ setPage }: HomeProps) {
+function HomePage({ setPage }: IHomeProps) {
     return (
         <div className="flex flex-col justify-center items-center w-svw h-svh space-y-14">
             <h1 className="font-sans text-7xl font-extrabold"

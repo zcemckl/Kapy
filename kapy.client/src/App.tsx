@@ -4,9 +4,9 @@ import WorkoutsPage, { WorkoutsLayout } from './pages/WorkoutsPage';
 import WorkoutPage, { WorkoutLayout } from './pages/WorkoutPage';
 import ErrorPage from './pages/ErrorPage';
 import Layout from './components/Layout';
-import { DefaultWorkout, Workout } from './classes/Workout.ts';  
+import { DefaultWorkout, IWorkout } from './classes/Workout.ts';  
 
-const sampleWorkouts: Workout[] = [
+const sampleWorkouts: IWorkout[] = [
     {
         "id": 1,
         "name": "V",
@@ -165,13 +165,35 @@ const sampleWorkouts: Workout[] = [
             height: 100
         }],
         "hashtags": ["Core Endurance"]
+    },
+    {
+        "id": 8,
+        "name": "Squat",
+        "description": "squat",
+        "notes": [{
+            id: 23,
+            content: "Elbows below bar",
+            width: 100,
+            height: 100
+        }, {
+            id: 24,
+            content: "Legs shouldnt cave inwards",
+            width: 100,
+            height: 100
+        }, {
+            id: 25,
+            content: "Legs should be hip width and kept loose",
+            width: 100,
+            height: 100
+        }],
+        "hashtags": ["Squat"]
     }
 ];
 
 function App() {
     const [page, setPage] = useState('home');
-    const [workouts, setWorkouts] = useState<Workout[]>(sampleWorkouts);
-    const [workout, setWorkout] = useState<Workout>(DefaultWorkout());
+    const [workouts, setWorkouts] = useState<IWorkout[]>(sampleWorkouts);
+    const [workout, setWorkout] = useState<IWorkout>(DefaultWorkout());
     const [workoutPageMode, setWorkoutPageMode] = useState('read');
 
     if (page == 'home') {

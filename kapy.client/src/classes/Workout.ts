@@ -1,15 +1,15 @@
-export interface WorkoutNote {
+export interface IWorkoutNote {
     id: number;
     content: string;
     width: number;
     height: number;
 }
 
-export interface Workout {
+export interface IWorkout {
     id: number;
     name: string;
     description: string;
-    notes: WorkoutNote[];
+    notes: IWorkoutNote[];
     hashtags: string[];
 }
 

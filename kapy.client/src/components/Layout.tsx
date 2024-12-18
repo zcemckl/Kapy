@@ -1,11 +1,11 @@
-interface LayoutProps {
+interface ILayoutProps {
     setPage: (page: string) => void;
     currentPage: string;
     currentPageButtons: React.ReactNode;
     children?: React.ReactNode;
 }
 
-function Layout({ setPage, currentPage, currentPageButtons, children }: LayoutProps) {
+function Layout({ setPage, currentPage, currentPageButtons, children }: ILayoutProps) {
     var parentPage = 'error'
     switch (currentPage) {
         case 'workout':
