@@ -1,5 +1,6 @@
-import { Workout, clone } from "../classes/Workout.ts";
+import { IWorkout, clone } from "../classes/Workout.ts";
 import ErrorPage from "./ErrorPage.tsx";
+import WorkoutDataAccess from '../data/WorkoutDataAccess.ts';  
 
 interface IWorkoutPageProps {
     workout: IWorkout;
@@ -8,6 +9,7 @@ interface IWorkoutPageProps {
 }
 
 interface IWorkoutLayoutProps {
+    workout: IWorkout;
     mode: string;
     setMode: (mode: string) => void;
 }
@@ -15,6 +17,11 @@ interface IWorkoutLayoutProps {
 function WorkoutPage({ workout, mode, setWorkout }: IWorkoutPageProps) {
     function handleChange(callback: () => void) {
         callback();
+        setWorkout(clone(workout));
+    }
+    function handleAddNoteClick() {
+        const newKey = workout.notes.reduce((max, note) => Math.max(max, note.key), 0) + 1;
+        workout.notes.push({ key: newKey, content: "", width: 250, height: 250 });
         setWorkout(clone(workout));
     }
 
@@ -88,8 +95,16 @@ function WorkoutPage({ workout, mode, setWorkout }: IWorkoutPageProps) {
                         <span className='p-3 font-bold opacity-100' style={{ color: 'rgb(32,52,98)' }} >
                             Notes
                         </span>
+                        <button className='bg-green-300 h-16 w-30' onClick={ handleAddNoteClick }>
+                            +
+                        </button>
                         <div className='flex flex-row space-x-2 p-3 resize' style={{ color: 'rgb(248, 246, 241)' }} >
-                            {workout.notes.map((note, index) => (<textarea key={index} className='text-lg text-center m-auto' style={{ backgroundColor: 'rgb(255, 146, 86)', resize: 'both' }} value={note.content} onChange={(e) => handleChange(() => { note.content = e.target.value })}>
+                            {workout.notes.map((note, index) =>
+                            (<textarea key={index}
+                                className='text-lg text-center m-auto'
+                                style={{ backgroundColor: 'rgb(255, 146, 86)', resize: 'both', width: { note.width }, height: { note.height } }}
+                                value={note.content}
+                                onChange={(e) => handleChange(() => { note.content = e.target.value })}>
                             </textarea>))}
                         </div>
                     </div>
@@ -109,8 +124,18 @@ function WorkoutPage({ workout, mode, setWorkout }: IWorkoutPageProps) {
     }
 }
 
-export function WorkoutLayout({ mode, setMode }: IWorkoutLayoutProps) {
+export function WorkoutLayout({ workout, mode, setMode }: IWorkoutLayoutProps) {
     function handleClick() {
+        if (mode == 'write') {
+            if (workout.key == 0) {
+                delete workout.key; 
+                WorkoutDataAccess.getInstance().addWorkout(workout);
+            }
+            else {
+                WorkoutDataAccess.getInstance().updateWorkout(workout);
+            }
+        }
+
         setMode(mode == 'read' ? 'write' : 'read');
     }
 
