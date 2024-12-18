@@ -9,9 +9,11 @@ class DbProvider {
     }
 
     private static initDB(): void {
-        const request = window.indexedDB.open("KapyDB", 1);
+        console.log("Opening IndexedDB...");
+        const request = window.indexedDB.open("KapyDB", 2);
 
         request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+            console.log("Upgrading IndexedDB...");
             const db = (event.target as IDBOpenDBRequest).result;
             if (!db.objectStoreNames.contains("Workouts")) {
                 const objectStore = db.createObjectStore("Workouts", { keyPath: "key", autoIncrement: true });
@@ -21,11 +23,16 @@ class DbProvider {
         };
 
         request.onsuccess = (event: Event) => {
+            console.log("IndexedDB opened successfully.");
             this.db = (event.target as IDBOpenDBRequest).result;
         };
 
         request.onerror = (event: Event) => {
             console.error("Database error: ", (event.target as IDBOpenDBRequest).error);
+        };
+
+        request.onblocked = () => {
+            console.warn("Database open request is blocked.");
         };
     }
 }

@@ -1,4 +1,4 @@
-import { IWorkout, clone } from "../classes/Workout.ts";
+import { IWorkout, clone } from "../models/Workout.ts";
 import ErrorPage from "./ErrorPage.tsx";
 import WorkoutDataAccess from '../data/WorkoutDataAccess.ts';  
 
@@ -102,7 +102,7 @@ function WorkoutPage({ workout, mode, setWorkout }: IWorkoutPageProps) {
                             {workout.notes.map((note, index) =>
                             (<textarea key={index}
                                 className='text-lg text-center m-auto'
-                                style={{ backgroundColor: 'rgb(255, 146, 86)', resize: 'both', width: { note.width }, height: { note.height } }}
+                                style={{ backgroundColor: 'rgb(255, 146, 86)', resize: 'both', width: `${note.width}px`, height: `${note.height}px` }}
                                 value={note.content}
                                 onChange={(e) => handleChange(() => { note.content = e.target.value })}>
                             </textarea>))}
@@ -127,9 +127,9 @@ function WorkoutPage({ workout, mode, setWorkout }: IWorkoutPageProps) {
 export function WorkoutLayout({ workout, mode, setMode }: IWorkoutLayoutProps) {
     function handleClick() {
         if (mode == 'write') {
-            if (workout.key == 0) {
-                delete workout.key; 
-                WorkoutDataAccess.getInstance().addWorkout(workout);
+            if (workout.key == 0) {  
+                delete workout.key;
+                WorkoutDataAccess.getInstance().addWorkout(workout);  
             }
             else {
                 WorkoutDataAccess.getInstance().updateWorkout(workout);

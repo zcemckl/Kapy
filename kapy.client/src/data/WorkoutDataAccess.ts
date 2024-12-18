@@ -19,8 +19,7 @@ class WorkoutDataAccess {
     public addWorkout(item: IWorkout): Promise<void> {
         return new Promise((resolve, reject) => {
             if (!this.db) {
-                reject("Database is not initialized");
-                return;
+                this.db = DbProvider.getDb();
             }
 
             const transaction = this.db.transaction(["Workouts"], "readwrite");
@@ -40,8 +39,7 @@ class WorkoutDataAccess {
     public updateWorkout(item: IWorkout): Promise<void> {
         return new Promise((resolve, reject) => {
             if (!this.db) {
-                reject("Database is not initialized");
-                return;
+                this.db = DbProvider.getDb();
             }
 
             const transaction = this.db.transaction(["Workouts"], "readwrite");
@@ -61,8 +59,7 @@ class WorkoutDataAccess {
     public getWorkoutByKey(key: string): Promise<any> {
         return new Promise((resolve, reject) => {
             if (!this.db) {
-                reject("Database is not initialized");
-                return;
+                this.db = DbProvider.getDb();
             }
 
             const transaction = this.db.transaction(["Workouts"], "readonly");
@@ -82,8 +79,7 @@ class WorkoutDataAccess {
     public getWorkouts(): Promise<IWorkout[]> {
         return new Promise((resolve, reject) => {
             if (!this.db) {
-                reject("Database is not initialized");
-                return;
+                this.db = DbProvider.getDb();
             }
 
             const transaction = this.db.transaction(["Workouts"], "readonly");
@@ -103,8 +99,7 @@ class WorkoutDataAccess {
     public getWorkoutsbyHastag(hashtags: string[]): Promise<IWorkout[]> {
         return new Promise((resolve, reject) => {
             if (!this.db) {
-                reject("Database is not initialized");
-                return;
+                this.db = DbProvider.getDb();
             }
 
             const transaction = this.db.transaction(["Workouts"], "readonly");
@@ -139,8 +134,7 @@ class WorkoutDataAccess {
     public deleteWorkout(key: string): Promise<void> {
         return new Promise((resolve, reject) => {
             if (!this.db) {
-                reject("Database is not initialized");
-                return;
+                this.db = DbProvider.getDb();
             }
 
             const transaction = this.db.transaction(["Workouts"], "readwrite");

@@ -3,15 +3,13 @@ import 'simplebar/dist/simplebar.css';
 import ResizeObserver from 'resize-observer-polyfill';  
 import { DefaultWorkout, IWorkout } from '../models/Workout.ts';  
 import WorkoutDataAccess from '../data/WorkoutDataAccess.ts';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 window.ResizeObserver = ResizeObserver;  
 
 interface IWorkoutsPageProps {
-    workouts: IWorkout[];  
     setPage: (page: string) => void;  
     setWorkout: (workout: IWorkout) => void;
-    setWorkouts: (workouts: IWorkout[]) => void;
 }  
 
 interface IWorkoutsLayoutProps {
@@ -19,10 +17,18 @@ interface IWorkoutsLayoutProps {
     setWorkout: (workout: IWorkout) => void;
 }
 
-async function WorkoutsPage({ setPage, setWorkout }: IWorkoutsPageProps) {  
-    const allWorkouts = await WorkoutDataAccess.getWorkouts();
-    const [workouts, setWorkouts] = useState<IWorkout[]>(allWorkouts);
+function WorkoutsPage({ setPage, setWorkout }: IWorkoutsPageProps) {  
+    const [allWorkouts, setAllWorkouts] = useState<IWorkout[]>([]);
     const [filters, setFilters] = useState<string[]>([]);
+
+    useEffect(() =>
+    {
+        const getWorkouts = async () => {
+            setAllWorkouts(await WorkoutDataAccess.getInstance().getWorkouts());
+        }
+
+        getWorkouts();
+    });
 
     function handleWorkoutClick(workout:IWorkout) {
         setPage('workout');
@@ -36,8 +42,6 @@ async function WorkoutsPage({ setPage, setWorkout }: IWorkoutsPageProps) {
         else {
             setFilters([...filters, hashtag]);
         }
-
-        setWorkouts(allWorkouts.filter(workout => filters.any(filter => workout.hashtags.includes(filter))));
     }
 
     return (  
@@ -55,8 +59,8 @@ async function WorkoutsPage({ setPage, setWorkout }: IWorkoutsPageProps) {
             </div>  
             <div data-simplebar className="w-full p-5" style={{ height: "calc(100svh - 20rem)" }}>  
                 <div className="flex flex-row flex-wrap justify-center">  
-                    {workouts.map(
-                        (workout) => (<button key={workout.key} className="w-32 h-32 bg-red-500 m-5" onClick={() => handleWorkoutClick(workout)}>{workout.name}</button>)
+                    {allWorkouts.filter(workout => filters.length != 0 ? filters.some(filter => workout.hashtags.includes(filter)) : true)
+                        .map((workout) => (<button key={workout.key} className="w-32 h-32 bg-red-500 m-5" onClick={() => handleWorkoutClick(workout)}>{workout.name}</button>)
                     )}
                 </div>  
             </div>  

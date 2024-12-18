@@ -6,7 +6,7 @@ export interface IWorkoutNote {
 }
 
 export interface IWorkout {
-    key: number;
+    key?: number;
     name: string;
     description: string;
     notes: IWorkoutNote[];
@@ -23,7 +23,6 @@ export function clone(workout: IWorkout): IWorkout {
 
 export function DefaultWorkout(): IWorkout {
     return {
-        key: 0,
         name: "Running",
         description: "One leg after another, a workout can't get any simpler.",
         notes: [{
